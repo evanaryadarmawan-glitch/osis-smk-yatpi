@@ -1,0 +1,14 @@
+// Konfigurasi Firebase untuk Proyek OSIS SMK YATPI Godong
+const firebaseConfig = {
+    apiKey: "AIzaSyANzQlMegsKbRBmGf9cPiQ-bGtGF3xzbCU",
+    authDomain: "osis-smk-yatpi.firebaseapp.com",
+    projectId: "osis-smk-yatpi",
+    storageBucket: "osis-smk-yatpi.firebasestorage.app",
+    messagingSenderId: "520847926813",
+    appId: "1:520847926813:web:37bc888bfe8de9ddb9c8f4",
+    measurementId: "G-9G6FRB5KX7"
+};
+
+// Inisialisasi Firebase & Realtime Database
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
