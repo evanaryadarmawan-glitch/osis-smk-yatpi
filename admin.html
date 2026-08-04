@@ -357,6 +357,7 @@
                 }
             });
 
+            // Sinkronisasi Real-Time Kotak Aspirasi di Panel Admin
             database.ref('suggestions').on('value', snapshot => {
                 const list = document.getElementById('admin-suggestions-list');
                 const badge = document.getElementById('admin-sug-badge');
