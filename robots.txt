@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://osis-smkyatpi.vercel.app/sitemap.xml
