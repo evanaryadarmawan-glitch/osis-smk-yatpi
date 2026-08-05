@@ -1,4 +1,4 @@
-// Konfigurasi Firebase SDK v9 Compat
+// Konfigurasi Firebase SDK v9 Compat untuk Firestore
 const firebaseConfig = {
   apiKey: "AIzaSyB78x1-kamlwnsjmVHNJQYW5ADV2assCDA",
   authDomain: "osis-smk-yatpi-6fa18.firebaseapp.com",
@@ -10,7 +10,9 @@ const firebaseConfig = {
 };
 
 // Inisialisasi Firebase (Compat Mode)
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
-// Inisialisasi Database agar dapat dipanggil secara global di index.html & admin.html
-const database = firebase.database();
+// Inisialisasi Firestore Database agar dapat dipanggil global
+const db = firebase.firestore();
