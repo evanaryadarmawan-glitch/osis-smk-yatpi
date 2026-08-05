@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /firebase-config.js
+
+Sitemap: https://osis-smk-yatpi.vercel.app/sitemap.xml
