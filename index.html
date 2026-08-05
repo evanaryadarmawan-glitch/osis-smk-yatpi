@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>OSIS SMK YATPI GODONG - Official Portal</title>
 
     <!-- Favicon & SEO Meta Tags -->
@@ -42,7 +42,10 @@
         }
     </script>
     <style>
-        html { scroll-behavior: smooth; }
+        /* Perbaikan agar gambar dan elemen fleksibel di HP */
+        img, video { max-width: 100%; height: auto; }
+        body { overflow-x: hidden; }
+        
         .glass-nav { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
         .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); border: 1px solid rgba(226, 232, 240, 0.8); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05); }
         .hero-gradient { background: radial-gradient(circle at top right, #3b82f6 0%, #1d4ed8 45%, #0b1329 100%); }
@@ -82,8 +85,8 @@
         <p class="mt-2 text-xs text-slate-400 tracking-widest font-semibold uppercase animate-pulse">Memuat Portal Resmi...</p>
     </div>
 
-    <!-- FLOATING ORGANIZATION EMBLEM -->
-    <div class="fixed bottom-6 left-6 z-40 hidden sm:flex items-center space-x-3 bg-slate-900/90 backdrop-blur-xl border border-slate-700/60 px-4 py-3 rounded-2xl shadow-2xl floating-emblem pointer-events-none">
+    <!-- FLOATING ORGANIZATION EMBLEM (Hidden di layar sangat kecil agar tidak menutupi konten) -->
+    <div class="fixed bottom-6 left-6 z-45 hidden md:flex items-center space-x-3 bg-slate-900/90 backdrop-blur-xl border border-slate-700/60 px-4 py-3 rounded-2xl shadow-2xl floating-emblem pointer-events-none">
         <div class="h-10 w-10 rounded-xl bg-white/95 flex items-center justify-center shadow-lg p-1">
             <img src="assets/logo-osis.png" alt="Logo OSIS" class="w-full h-full object-contain">
         </div>
@@ -94,26 +97,26 @@
     </div>
 
     <!-- FLOATING QUICK ASPIRATION BUTTON -->
-    <a href="#layanan" class="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-2xl shadow-blue-600/50 transition-all hover:scale-110 group cursor-pointer" title="Kirim Aspirasi">
-        <i class="fa-solid fa-comment-dots text-xl group-hover:rotate-12 transition"></i>
-        <span class="absolute right-16 bg-slate-900 text-white text-xs font-bold px-3.5 py-1.5 rounded-xl opacity-0 group-hover:opacity-100 transition whitespace-nowrap shadow-xl pointer-events-none">Kotak Saran</span>
+    <a href="#layanan" class="fixed bottom-6 right-6 z-45 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-2xl shadow-blue-600/50 transition-all hover:scale-110 group cursor-pointer" title="Kirim Aspirasi">
+        <i class="fa-solid fa-comment-dots text-lg sm:text-xl group-hover:rotate-12 transition"></i>
+        <span class="absolute right-16 bg-slate-900 text-white text-xs font-bold px-3.5 py-1.5 rounded-xl opacity-0 group-hover:opacity-100 transition whitespace-nowrap shadow-xl pointer-events-none hidden sm:block">Kotak Saran</span>
     </a>
 
     <!-- NAVBAR -->
     <header class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-nav border-b border-slate-200/60" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
-                <a href="#beranda" class="flex items-center space-x-3.5 group">
-                    <div class="h-11 w-11 rounded-2xl bg-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition p-1 ring-1 ring-slate-200">
+                <a href="#beranda" class="flex items-center space-x-3 group">
+                    <div class="h-10 w-10 sm:h-11 sm:w-11 rounded-2xl bg-white flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition p-1 ring-1 ring-slate-200 flex-shrink-0">
                         <img src="assets/logo-osis.png" alt="Logo OSIS SMK YATPI Godong" class="w-full h-full object-contain">
                     </div>
                     <div>
-                        <span class="block text-base font-extrabold text-slate-900 leading-tight">OSIS SMK YATPI</span>
-                        <span class="block text-[10px] font-bold text-blue-600 tracking-widest uppercase">GODONG OFFICIAL</span>
+                        <span class="block text-sm sm:text-base font-extrabold text-slate-900 leading-tight">OSIS SMK YATPI</span>
+                        <span class="block text-[9px] sm:text-[10px] font-bold text-blue-600 tracking-widest uppercase">GODONG OFFICIAL</span>
                     </div>
                 </a>
 
-                <nav class="hidden md:flex items-center space-x-7 font-semibold text-xs uppercase tracking-wider text-slate-600">
+                <nav class="hidden md:flex items-center space-x-5 lg:space-x-7 font-semibold text-xs uppercase tracking-wider text-slate-600">
                     <a href="#beranda" class="hover:text-blue-600 transition">Beranda</a>
                     <a href="#tentang" class="hover:text-blue-600 transition">Profil</a>
                     <a href="#visi-misi" class="hover:text-blue-600 transition">Visi Misi</a>
@@ -124,13 +127,13 @@
                 </nav>
 
                 <div class="hidden md:flex items-center space-x-3">
-                    <a href="#layanan" class="px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-bold shadow-md shadow-blue-500/20 hover:bg-blue-700 transition flex items-center">
+                    <a href="#layanan" class="px-4 lg:px-5 py-2.5 rounded-xl bg-primary text-white text-xs font-bold shadow-md shadow-blue-500/20 hover:bg-blue-700 transition flex items-center">
                         <i class="fa-solid fa-paper-plane mr-1.5"></i> Kotak Aspirasi
                     </a>
                 </div>
 
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                    <button id="mobile-menu-btn" aria-label="Menu" class="p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
                         <i class="fa-solid fa-bars text-lg"></i>
                     </button>
                 </div>
@@ -152,21 +155,21 @@
     </header>
 
     <!-- HERO SECTION -->
-    <section id="beranda" class="relative pt-36 pb-24 md:pt-48 md:pb-36 overflow-hidden hero-gradient text-white">
+    <section id="beranda" class="relative pt-32 pb-20 md:pt-48 md:pb-36 overflow-hidden hero-gradient text-white">
         <div class="absolute -top-40 -right-40 w-96 h-96 bg-blue-400 rounded-full filter blur-[120px] opacity-30 pointer-events-none"></div>
         <div class="absolute bottom-0 -left-20 w-80 h-80 bg-indigo-500 rounded-full filter blur-[100px] opacity-25 pointer-events-none"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                 <div class="lg:col-span-7 space-y-6 text-center lg:text-left" data-aos="fade-right">
-                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold text-blue-200 shadow-lg">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-                        <span>Portal Resmi Organisasi Siswa Intra Sekolah</span>
+                    <div class="inline-flex items-center space-x-2 px-3.5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[11px] sm:text-xs font-bold text-blue-200 shadow-lg max-w-full text-center">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping flex-shrink-0"></span>
+                        <span class="truncate">Portal Resmi Organisasi Siswa Intra Sekolah</span>
                     </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]">
+                    <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15]">
                         Kreatif, Inovatif, & <span class="text-blue-300 underline decoration-blue-400/60 decoration-4 underline-offset-8">Berkarakter</span>
                     </h1>
-                    <p class="text-base sm:text-lg text-blue-100/90 font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    <p class="text-sm sm:text-lg text-blue-100/90 font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                         Pusat aspirasi digital, transparansi program kerja, dan dokumentasi aktivitas siswa-siswi SMK YATPI Godong berbasis sistem informasi terintegrasi.
                     </p>
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
@@ -180,11 +183,11 @@
                 </div>
                 
                 <div class="lg:col-span-5 flex justify-center" data-aos="fade-left">
-                    <div class="glass-card p-8 sm:p-10 rounded-3xl shadow-2xl text-slate-800 relative border border-white/40 text-center max-w-sm w-full">
-                        <div class="absolute -top-4 -right-4 bg-amber-400 text-slate-900 text-xs font-extrabold px-3.5 py-1.5 rounded-full shadow-lg flex items-center">
+                    <div class="glass-card p-6 sm:p-10 rounded-3xl shadow-2xl text-slate-800 relative border border-white/40 text-center max-w-sm w-full mx-auto">
+                        <div class="absolute -top-4 -right-2 sm:-right-4 bg-amber-400 text-slate-900 text-[11px] sm:text-xs font-extrabold px-3 py-1.5 rounded-full shadow-lg flex items-center">
                             <i class="fa-solid fa-bolt mr-1.5"></i> Periode 2025/2026
                         </div>
-                        <div class="w-28 h-28 mx-auto rounded-full emblem-3d flex items-center justify-center shadow-2xl mb-6 p-2.5">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-full emblem-3d flex items-center justify-center shadow-2xl mb-6 p-2.5">
                             <img src="assets/logo-osis.png" alt="Logo OSIS SMK YATPI Godong" class="w-full h-full object-contain drop-shadow-lg">
                         </div>
                         <h3 class="font-extrabold text-xl text-slate-900 leading-tight">OSIS SMK YATPI</h3>
@@ -200,54 +203,54 @@
     </section>
 
     <!-- STATISTIK INTERAKTIF -->
-    <section class="py-12 bg-white border-b border-slate-100 relative z-20 -mt-8 max-w-6xl mx-auto rounded-3xl shadow-xl shadow-slate-200/50 px-6">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div class="p-4" data-aos="fade-up">
-                <span class="block text-3xl sm:text-4xl font-extrabold text-blue-600">5+</span>
-                <span class="block text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Jurusan Unggulan</span>
+    <section class="py-8 sm:py-12 bg-white border-b border-slate-100 relative z-20 -mt-8 max-w-6xl mx-auto rounded-3xl shadow-xl shadow-slate-200/50 px-4 sm:px-6 mx-4 sm:mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
+            <div class="p-2 sm:p-4" data-aos="fade-up">
+                <span class="block text-2xl sm:text-4xl font-extrabold text-blue-600">5+</span>
+                <span class="block text-[10px] sm:text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Jurusan Unggulan</span>
             </div>
-            <div class="p-4" data-aos="fade-up" data-aos-delay="100">
-                <span class="block text-3xl sm:text-4xl font-extrabold text-blue-600">24+</span>
-                <span class="block text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Program Kerja</span>
+            <div class="p-2 sm:p-4" data-aos="fade-up" data-aos-delay="100">
+                <span class="block text-2xl sm:text-4xl font-extrabold text-blue-600">24+</span>
+                <span class="block text-[10px] sm:text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Program Kerja</span>
             </div>
-            <div class="p-4" data-aos="fade-up" data-aos-delay="200">
-                <span id="stat-gallery-count" class="block text-3xl sm:text-4xl font-extrabold text-blue-600">0</span>
-                <span class="block text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Dokumentasi Foto</span>
+            <div class="p-2 sm:p-4" data-aos="fade-up" data-aos-delay="200">
+                <span id="stat-gallery-count" class="block text-2xl sm:text-4xl font-extrabold text-blue-600">0</span>
+                <span class="block text-[10px] sm:text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Dokumentasi Foto</span>
             </div>
-            <div class="p-4" data-aos="fade-up" data-aos-delay="300">
-                <span id="stat-sug-count" class="block text-3xl sm:text-4xl font-extrabold text-blue-600">0</span>
-                <span class="block text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Aspirasi Masuk</span>
+            <div class="p-2 sm:p-4" data-aos="fade-up" data-aos-delay="300">
+                <span id="stat-sug-count" class="block text-2xl sm:text-4xl font-extrabold text-blue-600">0</span>
+                <span class="block text-[10px] sm:text-xs text-slate-500 mt-1 font-bold uppercase tracking-wider">Aspirasi Masuk</span>
             </div>
         </div>
     </section>
 
     <!-- TENTANG KAMI & PEMBINA -->
-    <section id="tentang" class="py-24 bg-lightBg">
+    <section id="tentang" class="py-20 sm:py-24 bg-lightBg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-100/60 px-4 py-2 rounded-full">Profil Pembimbing</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4">Jajaran Pembina & Pimpinan Kesiswaan</h2>
-                <p class="text-slate-600 mt-2 text-sm">Data pengawasan dan pembimbingan organisasi yang dikelola secara profesional.</p>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4">Jajaran Pembina & Pimpinan Kesiswaan</h2>
+                <p class="text-slate-600 mt-2 text-xs sm:text-sm">Data pengawasan dan pembimbingan organisasi yang dikelola secara profesional.</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div class="glass-card p-6 sm:p-8 rounded-3xl flex items-center space-x-6 hover:shadow-xl transition duration-300" data-aos="fade-up">
-                    <div class="w-20 h-20 rounded-2xl bg-blue-50 text-primary flex items-center justify-center font-bold text-2xl flex-shrink-0 shadow-inner">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto">
+                <div class="glass-card p-5 sm:p-8 rounded-3xl flex items-center space-x-4 sm:space-x-6 hover:shadow-xl transition duration-300" data-aos="fade-up">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-blue-50 text-primary flex items-center justify-center font-bold text-xl sm:text-2xl flex-shrink-0 shadow-inner">
                         <i class="fa-solid fa-user-tie"></i>
                     </div>
-                    <div>
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 text-blue-600">Pembina Utama</span>
-                        <h4 id="view-pembina-1-name" class="text-lg font-bold text-slate-900 mt-2">Memuat...</h4>
-                        <p id="view-pembina-1-desc" class="text-xs text-slate-500 mt-0.5 font-medium">Pembina Kesiswaan Sekolah</p>
+                    <div class="min-w-0 flex-1">
+                        <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-50 text-blue-600">Pembina Utama</span>
+                        <h4 id="view-pembina-1-name" class="text-base sm:text-lg font-bold text-slate-900 mt-2 truncate">Memuat...</h4>
+                        <p id="view-pembina-1-desc" class="text-[11px] sm:text-xs text-slate-500 mt-0.5 font-medium truncate">Pembina Kesiswaan Sekolah</p>
                     </div>
                 </div>
-                <div class="glass-card p-6 sm:p-8 rounded-3xl flex items-center space-x-6 hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-20 h-20 rounded-2xl bg-blue-50 text-primary flex items-center justify-center font-bold text-2xl flex-shrink-0 shadow-inner">
+                <div class="glass-card p-5 sm:p-8 rounded-3xl flex items-center space-x-4 sm:space-x-6 hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-blue-50 text-primary flex items-center justify-center font-bold text-xl sm:text-2xl flex-shrink-0 shadow-inner">
                         <i class="fa-solid fa-user-shield"></i>
                     </div>
-                    <div>
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 text-blue-600">Koordinator Teknis</span>
-                        <h4 id="view-pembina-2-name" class="text-lg font-bold text-slate-900 mt-2">Memuat...</h4>
-                        <p id="view-pembina-2-desc" class="text-xs text-slate-500 mt-0.5 font-medium">Pembimbing Program OSIS</p>
+                    <div class="min-w-0 flex-1">
+                        <span class="text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-50 text-blue-600">Koordinator Teknis</span>
+                        <h4 id="view-pembina-2-name" class="text-base sm:text-lg font-bold text-slate-900 mt-2 truncate">Memuat...</h4>
+                        <p id="view-pembina-2-desc" class="text-[11px] sm:text-xs text-slate-500 mt-0.5 font-medium truncate">Pembimbing Program OSIS</p>
                     </div>
                 </div>
             </div>
@@ -255,21 +258,21 @@
     </section>
 
     <!-- VISI & MISI -->
-    <section id="visi-misi" class="py-24 bg-white">
+    <section id="visi-misi" class="py-20 sm:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-100/60 px-4 py-2 rounded-full">Komitmen Organisasi</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4">Visi & Misi OSIS</h2>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4">Visi & Misi OSIS</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="p-8 sm:p-10 rounded-3xl bg-darkBlue text-white shadow-2xl relative overflow-hidden flex flex-col justify-between" data-aos="fade-right">
+                <div class="p-6 sm:p-10 rounded-3xl bg-darkBlue text-white shadow-2xl relative overflow-hidden flex flex-col justify-between" data-aos="fade-right">
                     <div class="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full filter blur-[80px] opacity-20"></div>
                     <div>
                         <div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-xl font-bold mb-6 shadow-lg">
                             <i class="fa-solid fa-eye"></i>
                         </div>
                         <h3 class="text-xl font-extrabold mb-4">Visi Utama OSIS</h3>
-                        <p id="view-visi" class="text-slate-300 leading-relaxed text-sm">
+                        <p id="view-visi" class="text-slate-300 leading-relaxed text-xs sm:text-sm">
                             "Terwujudnya OSIS SMK YATPI Godong sebagai wadah aspirasi yang kreatif, inovatif, berakhlak mulia, serta unggul dalam bidang penguasaan teknologi modern dan kedisiplinan tinggi."
                         </p>
                     </div>
@@ -277,7 +280,7 @@
                         <i class="fa-solid fa-circle-check"></i> <span>Landasan Gerak Kabinet</span>
                     </div>
                 </div>
-                <div class="p-8 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col justify-between" data-aos="fade-left">
+                <div class="p-6 sm:p-10 rounded-3xl bg-slate-50 border border-slate-200 shadow-sm flex flex-col justify-between" data-aos="fade-left">
                     <div>
                         <div class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center text-xl font-bold mb-6 shadow-lg shadow-blue-500/30">
                             <i class="fa-solid fa-list-check"></i>
@@ -298,61 +301,61 @@
     </section>
 
     <!-- STRUKTUR PENGURUS INTI -->
-    <section id="pengurus" class="py-24 bg-lightBg">
+    <section id="pengurus" class="py-20 sm:py-24 bg-lightBg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-100/60 px-4 py-2 rounded-full">Struktur Kepengurusan</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4">Pengurus Inti OSIS Aktif</h2>
-                <p class="text-slate-600 mt-2 text-sm">Tim inti penggerak program kerja yang terhubung secara dinamis.</p>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4">Pengurus Inti OSIS Aktif</h2>
+                <p class="text-slate-600 mt-2 text-xs sm:text-sm">Tim inti penggerak program kerja yang terhubung secara dinamis.</p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="view-pengurus-grid"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8" id="view-pengurus-grid"></div>
         </div>
     </section>
 
     <!-- KEGIATAN & AGENDA -->
-    <section id="kegiatan" class="py-24 bg-white">
+    <section id="kegiatan" class="py-20 sm:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-100/60 px-4 py-2 rounded-full">Agenda Sekolah</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4">Kegiatan & Program Kerja Terbaru</h2>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4">Kegiatan & Program Kerja Terbaru</h2>
             </div>
-            <div id="view-agendas-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+            <div id="view-agendas-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8"></div>
         </div>
     </section>
 
     <!-- PENGUMUMAN SEKOLAH -->
-    <section id="pengumuman" class="py-24 bg-lightBg">
+    <section id="pengumuman" class="py-20 sm:py-24 bg-lightBg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-100/60 px-4 py-2 rounded-full">Informasi Penting</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4">Pengumuman & Mading Digital</h2>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4">Pengumuman & Mading Digital</h2>
             </div>
-            <div id="view-announcements-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"></div>
+            <div id="view-announcements-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto"></div>
         </div>
     </section>
 
     <!-- GALERI FOTO -->
-    <section id="galeri" class="py-24 bg-white">
+    <section id="galeri" class="py-20 sm:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-100/60 px-4 py-2 rounded-full">Dokumentasi</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4">Galeri Kegiatan OSIS</h2>
-                <p class="text-slate-600 mt-3 text-sm">Dokumentasi visual kegiatan yang disinkronkan secara real-time.</p>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4">Galeri Kegiatan OSIS</h2>
+                <p class="text-slate-600 mt-3 text-xs sm:text-sm">Dokumentasi visual kegiatan yang disinkronkan secara real-time.</p>
             </div>
             <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
         </div>
     </section>
 
     <!-- KOTAK SURAT SARAN & KONTAK -->
-    <section id="layanan" class="py-24 bg-lightBg">
+    <section id="layanan" class="py-20 sm:py-24 bg-lightBg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16" data-aos="fade-up">
                 <span class="text-xs font-bold uppercase tracking-widest text-blue-600 bg-blue-100/60 px-4 py-2 rounded-full">Pusat Aspirasi</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4">Kotak Saran & Layanan Informasi</h2>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-4">Kotak Saran & Layanan Informasi</h2>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-                <div class="lg:col-span-7 p-8 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-xl relative" data-aos="fade-right">
-                    <h3 class="text-xl font-extrabold text-slate-900 mb-6 flex items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                <div class="lg:col-span-7 p-6 sm:p-10 rounded-3xl bg-white border border-slate-200 shadow-xl relative" data-aos="fade-right">
+                    <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 mb-6 flex items-center">
                         <i class="fa-solid fa-envelope-open-text text-blue-600 mr-3"></i> Kirim Saran & Aspirasi
                     </h3>
                     <form id="suggestion-form" onsubmit="handleSuggestion(event)" class="space-y-5">
@@ -377,27 +380,27 @@
                 </div>
 
                 <div class="lg:col-span-5 space-y-6" data-aos="fade-left">
-                    <div class="p-8 sm:p-10 rounded-3xl bg-darkBlue text-white shadow-2xl">
-                        <h3 class="text-xl font-extrabold mb-6 flex items-center">
+                    <div class="p-6 sm:p-10 rounded-3xl bg-darkBlue text-white shadow-2xl">
+                        <h3 class="text-lg sm:text-xl font-extrabold mb-6 flex items-center">
                             <i class="fa-solid fa-headset text-blue-400 mr-3"></i> Kontak Posko & Layanan
                         </h3>
                         <div class="space-y-4">
                             <a href="tel:+6281234567890" class="flex items-center space-x-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition group">
-                                <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white text-lg shadow-md group-hover:scale-105 transition">
+                                <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white text-lg shadow-md group-hover:scale-105 transition flex-shrink-0">
                                     <i class="fa-solid fa-phone"></i>
                                 </div>
-                                <div>
+                                <div class="min-w-0 flex-1">
                                     <span class="block text-[11px] text-slate-400 font-semibold">Posko Sekretariat OSIS</span>
-                                    <span class="block text-sm font-extrabold text-white">+62 812-3456-7890</span>
+                                    <span class="block text-xs sm:text-sm font-extrabold text-white truncate">+62 812-3456-7890</span>
                                 </div>
                             </a>
                             <a href="tel:+6289876543210" class="flex items-center space-x-4 p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition group">
-                                <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white text-lg shadow-md group-hover:scale-105 transition">
+                                <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white text-lg shadow-md group-hover:scale-105 transition flex-shrink-0">
                                     <i class="fa-solid fa-user-tie"></i>
                                 </div>
-                                <div>
+                                <div class="min-w-0 flex-1">
                                     <span class="block text-[11px] text-slate-400 font-semibold">Ruang Pembina Kesiswaan</span>
-                                    <span class="block text-sm font-extrabold text-white">+62 898-7654-3210</span>
+                                    <span class="block text-xs sm:text-sm font-extrabold text-white truncate">+62 898-7654-3210</span>
                                 </div>
                             </a>
                         </div>
@@ -408,15 +411,15 @@
     </section>
 
     <!-- FOOTER -->
-    <footer id="kontak" class="bg-darkBlue text-white pt-20 pb-12 border-t border-slate-800">
+    <footer id="kontak" class="bg-darkBlue text-white pt-16 sm:pt-20 pb-12 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 pb-12 border-b border-slate-800">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-12 pb-12 border-b border-slate-800">
                 <div>
                     <div class="flex items-center space-x-3 mb-4">
-                        <div class="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-md p-1">
+                        <div class="h-10 w-10 rounded-xl bg-white flex items-center justify-center shadow-md p-1 flex-shrink-0">
                             <img src="assets/logo-osis.png" alt="Logo OSIS SMK YATPI Godong" class="w-full h-full object-contain">
                         </div>
-                        <span class="text-lg font-extrabold">OSIS SMK YATPI GODONG</span>
+                        <span class="text-base sm:text-lg font-extrabold">OSIS SMK YATPI GODONG</span>
                     </div>
                     <p class="text-xs text-slate-400 leading-relaxed">
                         Portal resmi sistem informasi digital, kotak aspirasi siswa, dan pusat dokumentasi kegiatan SMK YATPI Godong berbasis sistem terintegrasi.
@@ -441,9 +444,9 @@
                     </div>
                 </div>
             </div>
-            <div class="flex flex-col sm:flex-row items-center justify-between pt-8 text-xs text-slate-500 font-medium">
+            <div class="flex flex-col sm:flex-row items-center justify-between pt-8 text-xs text-slate-500 font-medium text-center sm:text-left">
                 <p>&copy; 2026 OSIS SMK YATPI Godong. All Rights Reserved.</p>
-                <p class="mt-2 sm:mt-0 flex items-center">Designed with <i class="fa-solid fa-heart text-rose-500 mx-1"></i> by Evan Arya Darmawan</p>
+                <p class="mt-2 sm:mt-0 flex items-center justify-center">Designed with <i class="fa-solid fa-heart text-rose-500 mx-1"></i> by Evan Arya Darmawan</p>
             </div>
         </div>
     </footer>
@@ -467,9 +470,14 @@
         });
 
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        if (mobileMenuBtn) {
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
             mobileMenuBtn.addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.toggle('hidden');
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Tutup menu saat link diklik
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
             });
         }
 
@@ -503,7 +511,6 @@
             }, 4500);
         }
 
-        // Real-time Data Sync dari Firestore ke Website Utama
         db.collection('settings').doc('pembina').onSnapshot((doc) => {
             if (doc.exists) {
                 const data = doc.data();
@@ -523,18 +530,18 @@
             if (!grid) return;
             grid.innerHTML = '';
             if (snapshot.empty) {
-                grid.innerHTML = `<p class="text-xs text-slate-400 col-span-4 text-center py-8">Belum ada data pengurus inti yang diinput.</p>`;
+                grid.innerHTML = `<p class="text-xs text-slate-400 col-span-full text-center py-8">Belum ada data pengurus inti yang diinput.</p>`;
                 return;
             }
             snapshot.forEach((doc) => {
                 const item = doc.data();
                 grid.innerHTML += `
                     <div class="glass-card p-6 sm:p-8 rounded-3xl text-center shadow-sm group hover:shadow-xl transition duration-300" data-aos="fade-up">
-                        <div class="w-28 h-28 mx-auto rounded-3xl bg-gradient-to-tr from-blue-700 to-primary text-white text-3xl font-extrabold flex items-center justify-center shadow-xl shadow-blue-500/30 mb-6 group-hover:scale-105 transition duration-300">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 mx-auto rounded-3xl bg-gradient-to-tr from-blue-700 to-primary text-white text-2xl sm:text-3xl font-extrabold flex items-center justify-center shadow-xl shadow-blue-500/30 mb-6 group-hover:scale-105 transition duration-300">
                             <i class="fa-solid fa-user-graduate"></i>
                         </div>
-                        <h3 class="text-lg font-extrabold text-slate-900">${item.name}</h3>
-                        <p class="text-xs font-bold text-blue-600 mt-1.5 uppercase tracking-wider">${item.role}</p>
+                        <h3 class="text-base sm:text-lg font-extrabold text-slate-900 truncate">${item.name}</h3>
+                        <p class="text-[11px] sm:text-xs font-bold text-blue-600 mt-1.5 uppercase tracking-wider truncate">${item.role}</p>
                     </div>
                 `;
             });
@@ -545,7 +552,7 @@
             if (!galleryGrid) return;
             galleryGrid.innerHTML = '';
             if (snapshot.empty) {
-                galleryGrid.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-10">Belum ada dokumentasi foto di galeri.</p>`;
+                galleryGrid.innerHTML = `<p class="text-xs text-slate-400 col-span-full text-center py-10">Belum ada dokumentasi foto di galeri.</p>`;
                 document.getElementById('stat-gallery-count').innerText = '0';
                 return;
             }
@@ -554,12 +561,12 @@
             snapshot.forEach((doc) => {
                 const item = doc.data();
                 galleryGrid.innerHTML += `
-                    <div class="rounded-3xl overflow-hidden glass-card shadow-sm group relative h-72 flex items-center justify-center bg-slate-900 text-white" data-aos="fade-up">
+                    <div class="rounded-3xl overflow-hidden glass-card shadow-sm group relative h-64 sm:h-72 flex items-center justify-center bg-slate-900 text-white" data-aos="fade-up">
                         <img src="${item.url}" alt="${item.desc}" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
                             <div>
                                 <span class="text-[10px] font-bold uppercase tracking-widest text-blue-400">Dokumentasi OSIS</span>
-                                <p class="text-white text-sm font-bold mt-0.5">${item.desc}</p>
+                                <p class="text-white text-xs sm:text-sm font-bold mt-0.5">${item.desc}</p>
                             </div>
                         </div>
                     </div>
@@ -637,20 +644,20 @@
             if(!grid) return;
             grid.innerHTML = '';
             if (snapshot.empty) {
-                grid.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-8">Belum ada agenda kegiatan.</p>`;
+                grid.innerHTML = `<p class="text-xs text-slate-400 col-span-full text-center py-8">Belum ada agenda kegiatan.</p>`;
                 return;
             }
             snapshot.forEach((doc) => {
                 const item = doc.data();
                 grid.innerHTML += `
                     <div class="rounded-3xl overflow-hidden glass-card shadow-sm group hover:shadow-xl transition duration-300" data-aos="fade-up">
-                        <div class="h-52 bg-gradient-to-tr from-blue-700 to-primary flex items-center justify-center text-white relative overflow-hidden">
-                            <i class="fa-solid fa-calendar-days text-6xl group-hover:scale-110 transition duration-500"></i>
+                        <div class="h-48 sm:h-52 bg-gradient-to-tr from-blue-700 to-primary flex items-center justify-center text-white relative overflow-hidden">
+                            <i class="fa-solid fa-calendar-days text-5xl sm:text-6xl group-hover:scale-110 transition duration-500"></i>
                             <span class="absolute top-4 right-4 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold">${item.category || 'Agenda'}</span>
                         </div>
                         <div class="p-6">
                             <span class="text-xs text-blue-600 font-extrabold uppercase tracking-wider">${item.date}</span>
-                            <h3 class="text-lg font-extrabold text-slate-900 mt-2">${item.title}</h3>
+                            <h3 class="text-base sm:text-lg font-extrabold text-slate-900 mt-2">${item.title}</h3>
                             <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">${item.desc}</p>
                         </div>
                     </div>
@@ -663,7 +670,7 @@
             if(!grid) return;
             grid.innerHTML = '';
             if (snapshot.empty) {
-                grid.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-8">Belum ada pengumuman aktif.</p>`;
+                grid.innerHTML = `<p class="text-xs text-slate-400 col-span-full text-center py-8">Belum ada pengumuman aktif.</p>`;
                 return;
             }
             snapshot.forEach((doc) => {
@@ -674,7 +681,7 @@
                             <span class="text-[10px] font-extrabold uppercase px-3 py-1 rounded-full bg-amber-100 text-amber-800">${item.badge || 'Info'}</span>
                             <span class="text-xs text-slate-400 font-semibold">${item.date}</span>
                         </div>
-                        <h3 class="text-lg font-extrabold text-slate-900">${item.title}</h3>
+                        <h3 class="text-base sm:text-lg font-extrabold text-slate-900">${item.title}</h3>
                         <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${item.desc}</p>
                     </div>
                 `;
