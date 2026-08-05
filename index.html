@@ -86,7 +86,7 @@
     </div>
 
     <!-- FLOATING ORGANIZATION EMBLEM (Hidden di layar sangat kecil agar tidak menutupi konten) -->
-    <div class="fixed bottom-6 left-6 z-45 hidden md:flex items-center space-x-3 bg-slate-900/90 backdrop-blur-xl border border-slate-700/60 px-4 py-3 rounded-2xl shadow-2xl floating-emblem pointer-events-none">
+    <div class="fixed bottom-6 left-6 z-30 hidden md:flex items-center space-x-3 bg-slate-900/90 backdrop-blur-xl border border-slate-700/60 px-4 py-3 rounded-2xl shadow-2xl floating-emblem pointer-events-none">
         <div class="h-10 w-10 rounded-xl bg-white/95 flex items-center justify-center shadow-lg p-1">
             <img src="assets/logo-osis.png" alt="Logo OSIS" class="w-full h-full object-contain">
         </div>
@@ -96,8 +96,8 @@
         </div>
     </div>
 
-    <!-- FLOATING QUICK ASPIRATION BUTTON -->
-    <a href="#layanan" class="fixed bottom-6 right-6 z-45 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-2xl shadow-blue-600/50 transition-all hover:scale-110 group cursor-pointer" title="Kirim Aspirasi">
+    <!-- FLOATING QUICK ASPIRATION BUTTON (Z-index diturunkan ke 30 agar tidak menimpa kartu/modal penting) -->
+    <a href="#layanan" class="fixed bottom-6 right-6 z-30 h-12 w-12 sm:h-14 sm:w-14 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-2xl shadow-blue-600/50 transition-all hover:scale-110 group cursor-pointer" title="Kirim Aspirasi">
         <i class="fa-solid fa-comment-dots text-lg sm:text-xl group-hover:rotate-12 transition"></i>
         <span class="absolute right-16 bg-slate-900 text-white text-xs font-bold px-3.5 py-1.5 rounded-xl opacity-0 group-hover:opacity-100 transition whitespace-nowrap shadow-xl pointer-events-none hidden sm:block">Kotak Saran</span>
     </a>
