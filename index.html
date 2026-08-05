@@ -451,7 +451,7 @@
     <!-- SCRIPTS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
     <script>
         AOS.init({ once: true, duration: 800 });
@@ -473,7 +473,6 @@
             });
         }
 
-        // Efek bayangan navbar saat halaman di-scroll
         const navbarEl = document.getElementById('navbar');
         if (navbarEl) {
             const toggleNavShadow = () => {
@@ -487,7 +486,6 @@
             window.addEventListener('scroll', toggleNavShadow, { passive: true });
         }
 
-        // Notifikasi Toast Interaktif di Website Utama
         function showToast(message, type = 'success') {
             const existingToast = document.getElementById('website-toast');
             if (existingToast) existingToast.remove();
@@ -505,10 +503,10 @@
             }, 4500);
         }
 
-        // Realtime Data Sync
-        database.ref('settings/pembina').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
+        // Real-time Data Sync dari Firestore ke Website Utama
+        db.collection('settings').doc('pembina').onSnapshot((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
                 if (data.p1) {
                     document.getElementById('view-pembina-1-name').innerText = data.p1.name;
                     document.getElementById('view-pembina-1-desc').innerText = data.p1.desc;
@@ -520,16 +518,16 @@
             }
         });
 
-        database.ref('settings/pengurus').on('value', (snapshot) => {
+        db.collection('pengurus').onSnapshot((snapshot) => {
             const grid = document.getElementById('view-pengurus-grid');
             if (!grid) return;
             grid.innerHTML = '';
-            const data = snapshot.val();
-            if (!data) {
+            if (snapshot.empty) {
                 grid.innerHTML = `<p class="text-xs text-slate-400 col-span-4 text-center py-8">Belum ada data pengurus inti yang diinput.</p>`;
                 return;
             }
-            Object.values(data).forEach((item) => {
+            snapshot.forEach((doc) => {
+                const item = doc.data();
                 grid.innerHTML += `
                     <div class="glass-card p-6 sm:p-8 rounded-3xl text-center shadow-sm group hover:shadow-xl transition duration-300" data-aos="fade-up">
                         <div class="w-28 h-28 mx-auto rounded-3xl bg-gradient-to-tr from-blue-700 to-primary text-white text-3xl font-extrabold flex items-center justify-center shadow-xl shadow-blue-500/30 mb-6 group-hover:scale-105 transition duration-300">
@@ -542,20 +540,19 @@
             });
         });
 
-        database.ref('gallery').on('value', (snapshot) => {
+        db.collection('gallery').onSnapshot((snapshot) => {
             const galleryGrid = document.getElementById('gallery-grid');
             if (!galleryGrid) return;
             galleryGrid.innerHTML = '';
-            const data = snapshot.val();
-            if (!data) {
+            if (snapshot.empty) {
                 galleryGrid.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-10">Belum ada dokumentasi foto di galeri.</p>`;
                 document.getElementById('stat-gallery-count').innerText = '0';
                 return;
             }
-            const entries = Object.entries(data);
-            document.getElementById('stat-gallery-count').innerText = entries.length;
+            document.getElementById('stat-gallery-count').innerText = snapshot.size;
 
-            entries.reverse().forEach(([id, item]) => {
+            snapshot.forEach((doc) => {
+                const item = doc.data();
                 galleryGrid.innerHTML += `
                     <div class="rounded-3xl overflow-hidden glass-card shadow-sm group relative h-72 flex items-center justify-center bg-slate-900 text-white" data-aos="fade-up">
                         <img src="${item.url}" alt="${item.desc}" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition duration-700">
@@ -570,11 +567,9 @@
             });
         });
 
-        database.ref('suggestions').on('value', (snapshot) => {
-            const data = snapshot.val();
-            const count = data ? Object.keys(data).length : 0;
+        db.collection('suggestions').onSnapshot((snapshot) => {
             const statSug = document.getElementById('stat-sug-count');
-            if (statSug) statSug.innerText = count;
+            if (statSug) statSug.innerText = snapshot.size;
         });
 
         function handleSuggestion(e) {
@@ -599,29 +594,31 @@
                 submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2 text-xs"></i> Mengirim Aspirasi...`;
             }
 
-            database.ref('suggestions').push({
+            db.collection('suggestions').add({
                 name: name || 'Anonim (Siswa)',
                 class: cls,
                 msg: msg,
-                date: date
-            }, (error) => {
+                date: date,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane mr-2 text-xs"></i> Kirim Aspirasi Siswa`;
                 }
-
-                if (!error) {
-                    document.getElementById('suggestion-form').reset();
-                    showToast('Aspirasi berhasil dikirim dan langsung masuk ke Panel Admin!', 'success');
-                } else {
-                    showToast('Gagal mengirim saran. Periksa koneksi internet Anda.', 'error');
+                document.getElementById('suggestion-form').reset();
+                showToast('Aspirasi berhasil dikirim dan langsung masuk ke Panel Admin!', 'success');
+            }).catch(() => {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane mr-2 text-xs"></i> Kirim Aspirasi Siswa`;
                 }
+                showToast('Gagal mengirim saran. Periksa koneksi internet Anda.', 'error');
             });
         }
 
-        database.ref('settings/visimisi').on('value', (snapshot) => {
-            const data = snapshot.val();
-            if (data) {
+        db.collection('settings').doc('visimisi').onSnapshot((doc) => {
+            if (doc.exists) {
+                const data = doc.data();
                 if (data.visi) document.getElementById('view-visi').innerText = data.visi;
                 if (data.misi) {
                     const misiList = document.getElementById('view-misi-list');
@@ -635,16 +632,16 @@
             }
         });
 
-        database.ref('agendas').on('value', (snapshot) => {
+        db.collection('agendas').onSnapshot((snapshot) => {
             const grid = document.getElementById('view-agendas-grid');
             if(!grid) return;
             grid.innerHTML = '';
-            const data = snapshot.val();
-            if (!data) {
+            if (snapshot.empty) {
                 grid.innerHTML = `<p class="text-xs text-slate-400 col-span-3 text-center py-8">Belum ada agenda kegiatan.</p>`;
                 return;
             }
-            Object.values(data).forEach(item => {
+            snapshot.forEach((doc) => {
+                const item = doc.data();
                 grid.innerHTML += `
                     <div class="rounded-3xl overflow-hidden glass-card shadow-sm group hover:shadow-xl transition duration-300" data-aos="fade-up">
                         <div class="h-52 bg-gradient-to-tr from-blue-700 to-primary flex items-center justify-center text-white relative overflow-hidden">
@@ -661,16 +658,16 @@
             });
         });
 
-        database.ref('announcements').on('value', (snapshot) => {
+        db.collection('announcements').onSnapshot((snapshot) => {
             const grid = document.getElementById('view-announcements-grid');
             if(!grid) return;
             grid.innerHTML = '';
-            const data = snapshot.val();
-            if (!data) {
+            if (snapshot.empty) {
                 grid.innerHTML = `<p class="text-xs text-slate-400 col-span-2 text-center py-8">Belum ada pengumuman aktif.</p>`;
                 return;
             }
-            Object.values(data).reverse().forEach(item => {
+            snapshot.forEach((doc) => {
+                const item = doc.data();
                 grid.innerHTML += `
                     <div class="glass-card p-6 sm:p-8 rounded-3xl space-y-4" data-aos="fade-up">
                         <div class="flex items-center justify-between">
