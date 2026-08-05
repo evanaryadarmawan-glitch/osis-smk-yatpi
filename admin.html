@@ -221,10 +221,9 @@
 
     <!-- SCRIPTS -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
     <script>
-        // Notifikasi Toast Interaktif
         function showNotification(message, type = 'success') {
             const existingToast = document.getElementById('toast-notification');
             if (existingToast) existingToast.remove();
@@ -274,88 +273,98 @@
         checkAuth();
 
         function loadAdminData() {
-            database.ref('settings/pembina').once('value', snapshot => {
-                const data = snapshot.val();
-                if(data) {
+            // Load Pembina
+            db.collection('settings').doc('pembina').get().then(doc => {
+                if(doc.exists) {
+                    const data = doc.data();
                     if(data.p1) { document.getElementById('p1-name').value = data.p1.name || ''; document.getElementById('p1-desc').value = data.p1.desc || ''; }
                     if(data.p2) { document.getElementById('p2-name').value = data.p2.name || ''; document.getElementById('p2-desc').value = data.p2.desc || ''; }
                 }
             });
 
-            database.ref('settings/visimisi').once('value', snapshot => {
-                const data = snapshot.val();
-                if(data) {
+            // Load Visi Misi
+            db.collection('settings').doc('visimisi').get().then(doc => {
+                if(doc.exists) {
+                    const data = doc.data();
                     document.getElementById('input-visi').value = data.visi || '';
                     document.getElementById('input-misi').value = data.misi || '';
                 }
             });
 
-            database.ref('settings/pengurus').on('value', snapshot => {
+            // Real-time Pengurus
+            db.collection('pengurus').onSnapshot(snapshot => {
                 const list = document.getElementById('admin-pengurus-list');
                 if (!list) return;
                 list.innerHTML = '';
-                const data = snapshot.val();
-                if(data) {
-                    Object.entries(data).forEach(([id, item]) => {
+                if(!snapshot.empty) {
+                    snapshot.forEach(doc => {
+                        const item = doc.data();
+                        const id = doc.id;
                         list.innerHTML += `
                             <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                                 <div>
                                     <h5 class="font-bold text-xs text-slate-900">${item.name}</h5>
                                     <p class="text-[10px] text-blue-600 font-bold">${item.role}</p>
                                 </div>
-                                <button onclick="deleteData('settings/pengurus/${id}', 'Pengurus berhasil dihapus!')" class="text-rose-500 hover:text-rose-700 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="deleteDoc('pengurus', '${id}', 'Pengurus berhasil dihapus!')" class="text-rose-500 hover:text-rose-700 text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         `;
                     });
                 }
             });
 
-            database.ref('agendas').on('value', snapshot => {
+            // Real-time Agenda
+            db.collection('agendas').onSnapshot(snapshot => {
                 const list = document.getElementById('admin-agenda-list');
                 if (!list) return;
                 list.innerHTML = '';
-                const data = snapshot.val();
-                if(data) {
-                    Object.entries(data).forEach(([id, item]) => {
+                if(!snapshot.empty) {
+                    snapshot.forEach(doc => {
+                        const item = doc.data();
+                        const id = doc.id;
                         list.innerHTML += `
                             <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
                                 <div><strong>${item.title}</strong> (${item.date})</div>
-                                <button onclick="deleteData('agendas/${id}', 'Agenda berhasil dihapus!')" class="text-rose-500 hover:text-rose-700 cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="deleteDoc('agendas', '${id}', 'Agenda berhasil dihapus!')" class="text-rose-500 hover:text-rose-700 cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         `;
                     });
                 }
             });
 
-            database.ref('announcements').on('value', snapshot => {
+            // Real-time Announcements
+            db.collection('announcements').onSnapshot(snapshot => {
                 const list = document.getElementById('admin-ann-list');
                 if (!list) return;
                 list.innerHTML = '';
-                const data = snapshot.val();
-                if(data) {
-                    Object.entries(data).forEach(([id, item]) => {
+                if(!snapshot.empty) {
+                    snapshot.forEach(doc => {
+                        const item = doc.data();
+                        const id = doc.id;
                         list.innerHTML += `
                             <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between text-xs">
                                 <div><strong>${item.title}</strong> [${item.badge}]</div>
-                                <button onclick="deleteData('announcements/${id}', 'Pengumuman berhasil dihapus!')" class="text-rose-500 hover:text-rose-700 cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                                <button onclick="deleteDoc('announcements', '${id}', 'Pengumuman berhasil dihapus!')" class="text-rose-500 hover:text-rose-700 cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                             </div>
                         `;
                     });
                 }
             });
 
-            database.ref('gallery').on('value', snapshot => {
+            // Real-time Gallery
+            db.collection('gallery').onSnapshot(snapshot => {
                 const grid = document.getElementById('admin-gallery-grid');
                 if (!grid) return;
                 grid.innerHTML = '';
-                const data = snapshot.val();
-                if(data) {
-                    Object.entries(data).forEach(([id, item]) => {
+                if(!snapshot.empty) {
+                    snapshot.forEach(doc => {
+                        const item = doc.data();
+                        const id = doc.id;
                         grid.innerHTML += `
                             <div class="relative rounded-2xl overflow-hidden h-32 bg-slate-900 group shadow-sm">
                                 <img src="${item.url}" alt="Dokumentasi galeri OSIS" loading="lazy" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                                    <button onclick="deleteData('gallery/${id}', 'Foto galeri berhasil dihapus!')" class="p-2 rounded-xl bg-rose-600 text-white text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                                    <button onclick="deleteDoc('gallery', '${id}', 'Foto galeri berhasil dihapus!')" class="p-2 rounded-xl bg-rose-600 text-white text-xs cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>
                         `;
@@ -363,19 +372,19 @@
                 }
             });
 
-            // Sinkronisasi Real-Time Kotak Aspirasi di Panel Admin
-            database.ref('suggestions').on('value', snapshot => {
+            // Real-time Suggestions
+            db.collection('suggestions').onSnapshot(snapshot => {
                 const list = document.getElementById('admin-suggestions-list');
                 const badge = document.getElementById('admin-sug-badge');
                 if(!list) return;
                 list.innerHTML = '';
-                const data = snapshot.val();
                 
-                if(data) {
-                    const entries = Object.entries(data);
-                    if(badge) badge.innerText = `${entries.length} Aspirasi Masuk`;
+                if(!snapshot.empty) {
+                    if(badge) badge.innerText = `${snapshot.size} Aspirasi Masuk`;
                     
-                    entries.reverse().forEach(([id, item]) => {
+                    snapshot.forEach(doc => {
+                        const item = doc.data();
+                        const id = doc.id;
                         list.innerHTML += `
                             <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 hover:shadow-md transition">
                                 <div class="flex items-center justify-between">
@@ -385,7 +394,7 @@
                                     </div>
                                     <div class="flex items-center space-x-3">
                                         <span class="text-[10px] text-slate-400 font-semibold"><i class="fa-regular fa-clock mr-1"></i>${item.date}</span>
-                                        <button onclick="deleteData('suggestions/${id}', 'Aspirasi berhasil dihapus!')" class="text-rose-500 hover:text-rose-700 text-xs p-1.5 rounded-lg hover:bg-rose-50 transition cursor-pointer"><i class="fa-solid fa-trash"></i></button>
+                                        <button onclick="deleteDoc('suggestions', '${id}', 'Aspirasi berhasil dihapus!')" class="text-rose-500 hover:text-rose-700 text-xs p-1.5 rounded-lg hover:bg-rose-50 transition cursor-pointer"><i class="fa-solid fa-trash"></i></button>
                                     </div>
                                 </div>
                                 <p class="text-xs text-slate-600 bg-white p-3.5 rounded-xl border border-slate-100 leading-relaxed">"${item.msg}"</p>
@@ -401,74 +410,68 @@
 
         function savePembina(e) {
             e.preventDefault();
-            database.ref('settings/pembina').set({
+            db.collection('settings').doc('pembina').set({
                 p1: { name: document.getElementById('p1-name').value, desc: document.getElementById('p1-desc').value },
                 p2: { name: document.getElementById('p2-name').value, desc: document.getElementById('p2-desc').value }
-            }, (error) => {
-                if(!error) showNotification('Data profil pembina berhasil diperbarui!');
-                else showNotification('Terjadi kesalahan saat menyimpan.', 'error');
+            }).then(() => {
+                showNotification('Data profil pembina berhasil diperbarui!');
+            }).catch(() => {
+                showNotification('Terjadi kesalahan saat menyimpan.', 'error');
             });
         }
 
         function saveVisiMisi(e) {
             e.preventDefault();
-            database.ref('settings/visimisi').set({
+            db.collection('settings').doc('visimisi').set({
                 visi: document.getElementById('input-visi').value,
                 misi: document.getElementById('input-misi').value
-            }, (error) => {
-                if(!error) showNotification('Visi dan Misi berhasil diperbarui!');
-                else showNotification('Terjadi kesalahan saat menyimpan.', 'error');
+            }).then(() => {
+                showNotification('Visi dan Misi berhasil diperbarui!');
+            }).catch(() => {
+                showNotification('Terjadi kesalahan saat menyimpan.', 'error');
             });
         }
 
         function addPengurus(e) {
             e.preventDefault();
-            const name = document.getElementById('pengurus-name').value;
-            const role = document.getElementById('pengurus-role').value;
-            database.ref('settings/pengurus').push({
-                name: name,
-                role: role
-            }, (error) => {
-                if(!error) {
-                    showNotification('Pengurus baru berhasil ditambahkan!');
-                    document.getElementById('pengurus-name').value = '';
-                    document.getElementById('pengurus-role').value = '';
-                } else {
-                    showNotification('Gagal menambahkan pengurus.', 'error');
-                }
+            db.collection('pengurus').add({
+                name: document.getElementById('pengurus-name').value,
+                role: document.getElementById('pengurus-role').value
+            }).then(() => {
+                showNotification('Pengurus baru berhasil ditambahkan!');
+                document.getElementById('pengurus-name').value = '';
+                document.getElementById('pengurus-role').value = '';
+            }).catch(() => {
+                showNotification('Gagal menambahkan pengurus.', 'error');
             });
         }
 
         function addAgenda(e) {
             e.preventDefault();
-            database.ref('agendas').push({
+            db.collection('agendas').add({
                 title: document.getElementById('agenda-title').value,
                 date: document.getElementById('agenda-date').value,
                 category: document.getElementById('agenda-cat').value,
                 desc: 'Agenda kegiatan resmi OSIS SMK YATPI Godong.'
-            }, (error) => { 
-                if(!error) {
-                    showNotification('Agenda kegiatan berhasil ditambahkan!');
-                    document.getElementById('agenda-title').value = '';
-                    document.getElementById('agenda-date').value = '';
-                    document.getElementById('agenda-cat').value = '';
-                }
+            }).then(() => {
+                showNotification('Agenda kegiatan berhasil ditambahkan!');
+                document.getElementById('agenda-title').value = '';
+                document.getElementById('agenda-date').value = '';
+                document.getElementById('agenda-cat').value = '';
             });
         }
 
         function addAnnouncement(e) {
             e.preventDefault();
-            database.ref('announcements').push({
+            db.collection('announcements').add({
                 title: document.getElementById('ann-title').value,
                 badge: document.getElementById('ann-badge').value,
                 date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
                 desc: 'Informasi dan pengumuman penting terbaru bagi seluruh siswa.'
-            }, (error) => { 
-                if(!error) {
-                    showNotification('Pengumuman berhasil dipublikasikan!');
-                    document.getElementById('ann-title').value = '';
-                    document.getElementById('ann-badge').value = '';
-                }
+            }).then(() => {
+                showNotification('Pengumuman berhasil dipublikasikan!');
+                document.getElementById('ann-title').value = '';
+                document.getElementById('ann-badge').value = '';
             });
         }
 
@@ -482,23 +485,22 @@
 
             const reader = new FileReader();
             reader.onload = function(uploadEvent) {
-                database.ref('gallery').push({
+                db.collection('gallery').add({
                     url: uploadEvent.target.result,
-                    desc: desc
-                }, (error) => {
-                    if(!error) {
-                        showNotification('Foto berhasil diunggah ke galeri!');
-                        fileInput.value = '';
-                        document.getElementById('gallery-desc').value = '';
-                    }
+                    desc: desc,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                }).then(() => {
+                    showNotification('Foto berhasil diunggah ke galeri!');
+                    fileInput.value = '';
+                    document.getElementById('gallery-desc').value = '';
                 });
             };
             reader.readAsDataURL(file);
         }
 
-        function deleteData(path, customMsg = 'Data berhasil dihapus!') {
+        function deleteDoc(collectionName, docId, customMsg = 'Data berhasil dihapus!') {
             if(confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                database.ref(path).remove()
+                db.collection(collectionName).doc(docId).delete()
                     .then(() => showNotification(customMsg, 'success'))
                     .catch(() => showNotification('Gagal menghapus data.', 'error'));
             }
